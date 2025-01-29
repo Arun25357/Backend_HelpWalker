@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'ExpressDB' });
+  res.render('index', { title: 'HelpWalkerDB' });
 });
 
 module.exports = router;
