@@ -7,7 +7,14 @@ const mongoose = require("mongoose");
 
 mongoose.Promise = global.Promise;
 
-
+mongoose.connect("mongodb+srv://arun:1234@cluster0.xs8jb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+    .then(() => {
+        console.log("Connected to the database");
+    })
+    .catch((err) => {
+        console.log("Cannot connect to the database", err);
+        process.exit();
+    });
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
