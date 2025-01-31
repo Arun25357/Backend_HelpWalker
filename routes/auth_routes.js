@@ -36,12 +36,20 @@ router.post('/login', function(req, res, next) {
             if(!data) {
                 res.status(404).send({ message: "Not found user with email " + req.body.email });
             } else {
-                res.send(data);
+                res.send( );
             }
         })
         .catch(err => {
             res.status(500).send({ message: "Error retrieving user with email=" + req.body.email });
         });
+
+    const token = jwt.sign({ email: req.body.email, password: req.body.password },
+        process.env.JWT_KEY,
+        {
+            expiresIn: "1h"
+        }
+    );
+    console.log(req.body);
 });
 
 module.exports = router;
