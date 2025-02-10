@@ -4,12 +4,10 @@ const User = require("../models/user");
 const mongoose = require("mongoose");
 
 /* GET users listing. */
-router.post('/register', function(req, res, next) { 
-    if(!req.body) {
-        return res.status(400).send({
-            message: "User content can not be empty"
-        });
-    }
+router.post('/register', async function(req, res, next) { 
+    if (!req.body.name || !req.body.email || !req.body.password) {
+        return res.status(400).send({ message: "Missing required fields" });
+    }    
     const user = new User({
         name: req.body.name,
         email: req.body.email,
@@ -19,6 +17,12 @@ router.post('/register', function(req, res, next) {
         descirption: req.body.descirption
 
     });
+
+    const existingUser = await User.findOne({ email: req.body.email });
+        if (existingUser) {
+            return res.status(400).send({ message: "Email already exists" });
+    }
+
     user.save()
         .then(data => {
             res.send(data);
@@ -30,26 +34,6 @@ router.post('/register', function(req, res, next) {
         });
 });
 
-router.post('/login', function(req, res, next) {
-    User.findOne({ email: req.body.email, password: req.body.password })
-        .then(data => {
-            if(!data) {
-                res.status(404).send({ message: "Not found user with email " + req.body.email });
-            } else {
-                res.send( );
-            }
-        })
-        .catch(err => {
-            res.status(500).send({ message: "Error retrieving user with email=" + req.body.email });
-        });
 
-    const token = jwt.sign({ email: req.body.email, password: req.body.password },
-        process.env.JWT_KEY,
-        {
-            expiresIn: "1h"
-        }
-    );
-    console.log(req.body);
-});
 
 module.exports = router;

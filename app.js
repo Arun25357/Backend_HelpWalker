@@ -4,9 +4,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require("mongoose");
-const ejs = require('ejs');
+// const ejs = require('ejs');
 const expessSession = require('express-session');
 const flash = require('connect-flash');
+const cors = require('cors');
+
+const corsOptions = {
+  origin: 'http://localhost:3000', // ใช้ localhost แทน 10.26.137.27
+  methods: 'GET, POST, PUT, DELETE',
+  allowedHeaders: 'Content-Type, Authorization',
+};
+
+
 
 mongoose.Promise = global.Promise;
 
@@ -34,12 +43,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
 app.use(flash());
+app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/auth', authRouter);
+app.post('/auth/register', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
