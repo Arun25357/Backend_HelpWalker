@@ -12,28 +12,23 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Password is required']
+    },
+    phone: {
+        type: String,
+        required: [true, 'Phone is required']
+    },
+    address: {
+        type: String,
+        required: [true, 'Address is required']
+    },
+    score: {
+        type: Number,
+        default: 0
+    },
+    role: {
+        type: String,
+        default: 'user'
     }
-    // },
-    // phone: {
-    //     type: String,
-    //     required: [true, 'Phone is required']
-    // },
-    // address: {
-    //     type: String,
-    //     required: [true, 'Address is required']
-    // },
-    // description: {
-    //     type: String,
-    //     required: [true, 'Description is required']
-    // },
-    // score: {
-    //     type: Number,
-    //     default: 0
-    // },
-    // role: {
-    //     type: String,
-    //     default: 'user'
-    // }
 
 });
 
