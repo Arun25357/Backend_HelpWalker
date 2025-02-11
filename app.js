@@ -30,7 +30,8 @@ mongoose.connect("mongodb+srv://arun:1234@cluster0.xs8jb.mongodb.net/?retryWrite
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var authRouter = require('./routes/auth_routes');
+var authRouter = require('./routes/auth');
+var storeUserRouter = require('./routes/storeuser');
 
 var app = express();
 
@@ -46,10 +47,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.set('view engine', 'ejs');
 app.use(flash());
 app.use(cors());
+app.use(expessSession({
+  secret: "node secret",
+}));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+app.use('/storeuser', storeUserRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
