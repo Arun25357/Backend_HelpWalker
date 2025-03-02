@@ -3,11 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HelpWalkerDB</title>
+  <title>HelpWalkerHOME</title>
 </head>
 <body>
   <form>
-    <label for="BlackEnd">HelpWalkerDB</label>
+    <label for="BlackEnd">HelpWalkerHOME</label>
+    <br>
+
+    <%= UserData.email %>
+    <br>
+    <%= UserData._id %>
 
     <% if (loggedIn) { %>
       <a href="/logout">Logout</a>
@@ -16,7 +21,7 @@
     <% if (!loggedIn) { %>
       <a href="/register">Register</a>
       <a href="/login">Login</a>
-    <% } %>  <!-- ✅ ปิดแท็กให้ครบ -->
+    <% } %>  
 
   </form>
 </body>
